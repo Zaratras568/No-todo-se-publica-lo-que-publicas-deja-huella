@@ -1,0 +1,448 @@
+/* ============================================
+   NO TODO SE COMPARTE — sistema de diseño
+   Colores y tipografías: Manual de Marca ECOTEC
+   ============================================ */
+
+:root {
+  --blue: #0A5CA5;
+  --blue-dark: #084a86;
+  --cyan: #24B8E7;
+  --slate: #687F94;
+  --ink: #16232E;
+  --bg: #FFFFFF;
+  --bg-soft: #F3F8FC;
+  --bg-tint: #E8F4FB;
+  --border: #E1E8EF;
+  --success: #1E9E5A;
+  --success-bg: #E7F7EE;
+  --locked: #A9B4BE;
+  --locked-bg: #F2F4F6;
+
+  --font-display: "Poppins", sans-serif;
+  --font-body: "Montserrat", sans-serif;
+
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+button { font-family: inherit; cursor: pointer; }
+svg { display: block; }
+
+/* ===== TOPBAR (logo con espacio de seguridad) ===== */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px clamp(20px, 4vw, 48px);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar__brand { display: flex; align-items: center; gap: 16px; }
+
+.topbar__logo {
+  height: 34px;
+  width: auto;
+  display: block;
+  /* área de seguridad: espacio libre alrededor del logo */
+  padding: 4px 8px;
+}
+
+.topbar__divider {
+  width: 1px;
+  height: 30px;
+  background: var(--border);
+}
+
+.topbar__product { display: flex; flex-direction: column; line-height: 1.25; }
+
+.topbar__product-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.topbar__product-tag {
+  font-size: 11px;
+  color: var(--slate);
+}
+
+.topbar__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-soft);
+  border-radius: 20px;
+  padding: 6px 14px 6px 6px;
+}
+
+.topbar__avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar__level {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--slate);
+}
+
+/* ===== VIEWS ===== */
+
+main { max-width: 1040px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+
+.view { display: none; }
+.view.is-active { display: block; animation: view-in 0.3s ease; }
+
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HERO (inicio) ===== */
+
+.hero { max-width: 620px; padding: clamp(48px, 8vw, 96px) 0 64px; }
+
+.hero__kicker {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 12px;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(34px, 5vw, 48px);
+  line-height: 1.1;
+  margin: 0 0 18px;
+  color: var(--ink);
+}
+
+.hero__lede {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--slate);
+  margin: 0 0 36px;
+}
+
+/* ===== FORM ===== */
+
+.id-form {
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+  max-width: 480px;
+}
+
+.id-form label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.id-form__row { display: flex; gap: 10px; }
+
+.id-form input {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  color: var(--ink);
+}
+
+.id-form__note {
+  font-size: 11.5px;
+  color: var(--slate);
+  margin-top: 10px;
+}
+
+/* ===== BUTTONS ===== */
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn--primary { background: var(--blue); color: #fff; }
+.btn--primary:hover { background: var(--blue-dark); }
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+.btn--ghost:hover { background: var(--bg-soft); }
+
+.btn--locked {
+  background: var(--locked-bg);
+  color: var(--locked);
+  cursor: not-allowed;
+  width: 100%;
+}
+
+/* ===== PANEL (dashboard de misiones) ===== */
+
+.panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 40px 0 28px;
+}
+
+.panel-head__kicker {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 6px;
+}
+
+.panel-head__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  margin: 0;
+  color: var(--ink);
+}
+
+.progress-summary { min-width: 220px; }
+
+.progress-summary__text {
+  font-size: 12.5px;
+  color: var(--slate);
+  margin-bottom: 8px;
+  text-align: right;
+}
+
+.progress-bar {
+  width: 220px;
+  height: 8px;
+  background: var(--bg-soft);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  width: 0%;
+  background: var(--cyan);
+  transition: width 0.4s ease;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin: 32px 0 14px;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.mission-grid--closing { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 48px; }
+
+.mission-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 1px 2px rgba(22, 35, 46, 0.04);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.mission-card__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--bg-tint);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.mission-card.is-bloqueada .mission-card__icon {
+  background: var(--locked-bg);
+  color: var(--locked);
+}
+
+.mission-card.is-completada .mission-card__icon {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.mission-card__eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin: 0 0 4px;
+}
+
+.mission-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.mission-card__meta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mission-card__meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--slate);
+}
+
+.mission-card__desc {
+  font-size: 12.5px;
+  color: var(--slate);
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+.mission-card .btn { width: 100%; margin-top: auto; }
+
+/* ===== VISTA DE MÓDULO (contenido) ===== */
+
+.module-view { max-width: 720px; padding-top: 32px; padding-bottom: 72px; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--slate);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 24px;
+}
+.back-link:hover { color: var(--blue); }
+
+.module-view__kicker {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 8px;
+}
+
+.module-view__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3.5vw, 32px);
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+
+.module-view__lede {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--slate);
+  max-width: 56ch;
+  margin: 0 0 28px;
+}
+
+.content-slot {
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  color: var(--slate);
+  font-size: 13px;
+  text-align: center;
+  padding: 56px 20px;
+  margin-bottom: 16px;
+}
+
+.content-slot--sm { padding: 28px 20px; }
+
+.module-view__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* ===== FOOTER ===== */
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  padding: 28px;
+  border-top: 1px solid var(--border);
+  color: var(--slate);
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+.site-footer__logo { height: 20px; width: auto; opacity: 0.85; }
+.site-footer__icon { height: 26px; width: auto; }
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 640px) {
+  .topbar__product-tag { display: none; }
+  .panel-head { align-items: flex-start; }
+  .progress-summary__text { text-align: left; }
+  .progress-bar { width: 100%; }
+  .module-view__actions { flex-direction: column-reverse; }
+  .module-view__actions .btn { width: 100%; }
+}
