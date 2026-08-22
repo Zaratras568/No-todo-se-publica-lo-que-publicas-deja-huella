@@ -14,10 +14,14 @@ const dropdownNombre = document.getElementById("dropdown-nombre");
 const dropdownNivel = document.getElementById("dropdown-nivel");
 const saludoPanel = document.getElementById("saludo-panel");
 const btnSalir = document.getElementById("btn-salir");
+const btnTopbarPanel = document.getElementById("btn-topbar-panel");
+const btnMenuToggleIdentidad = document.getElementById("btn-menu-toggle");
 
 function actualizarIdentidad() {
   if (!estado.nombre) return;
   userPill.hidden = false;
+  btnTopbarPanel.hidden = false;
+  btnMenuToggleIdentidad.hidden = false;
   avatarIniciales.textContent = iniciales(estado.nombre);
 
   const completados = contarCompletados();
@@ -57,6 +61,10 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") userPill.classList.remove("is-abierto");
 });
 
+/* ===== Acceso directo al panel principal (barra superior) ===== */
+
+btnTopbarPanel.addEventListener("click", volverAlPanel);
+
 /* ===== Salir de la sesión (borra el progreso de este navegador) ===== */
 
 btnSalir.addEventListener("click", () => {
@@ -77,6 +85,8 @@ btnSalir.addEventListener("click", () => {
   dropdownNivel.textContent = "Nivel 1 · 0 XP";
   userPill.hidden = true;
   userPill.classList.remove("is-abierto");
+  btnTopbarPanel.hidden = true;
+  btnMenuToggleIdentidad.hidden = true;
   sidebar.innerHTML = "";
 
   mostrarVista("view-inicio");

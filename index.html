@@ -33,6 +33,8 @@
   <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></symbol>
   <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></symbol>
   <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></symbol>
+  <symbol id="i-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"></path></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></symbol>
 </svg>
 
 <header class="topbar">
@@ -44,25 +46,34 @@
       <span class="topbar__product-tag">REA · Vinculación con la Sociedad</span>
     </div>
   </div>
-  <div class="topbar__user" id="user-pill" hidden>
-    <button class="topbar__user-trigger" id="btn-user-trigger" aria-haspopup="true" aria-expanded="false">
-      <span class="topbar__avatar" id="avatar-iniciales">--</span>
-      <span class="topbar__level" id="nivel-label">Nivel 1 · 0 XP</span>
-      <svg width="11" height="11" class="topbar__chevron"><use href="#i-chevron"></use></svg>
+  <div class="topbar__actions">
+    <button class="topbar__icon-btn" id="btn-menu-toggle" hidden aria-label="Abrir índice del curso">
+      <svg width="18" height="18"><use href="#i-hamburger"></use></svg>
     </button>
-    <div class="topbar__dropdown" id="user-dropdown">
-      <p class="topbar__dropdown-nombre" id="dropdown-nombre">—</p>
-      <p class="topbar__dropdown-nivel" id="dropdown-nivel">Nivel 1 · 0 XP</p>
-      <div class="topbar__dropdown-divider"></div>
-      <button class="topbar__dropdown-salir" id="btn-salir">
-        <svg width="14" height="14"><use href="#i-logout"></use></svg>Salir de la sesión
+    <button class="topbar__icon-btn" id="btn-topbar-panel" hidden aria-label="Ir al panel principal">
+      <svg width="18" height="18"><use href="#i-grid"></use></svg>
+    </button>
+    <div class="topbar__user" id="user-pill" hidden>
+      <button class="topbar__user-trigger" id="btn-user-trigger" aria-haspopup="true" aria-expanded="false">
+        <span class="topbar__avatar" id="avatar-iniciales">--</span>
+        <span class="topbar__level" id="nivel-label">Nivel 1 · 0 XP</span>
+        <svg width="11" height="11" class="topbar__chevron"><use href="#i-chevron"></use></svg>
       </button>
+      <div class="topbar__dropdown" id="user-dropdown">
+        <p class="topbar__dropdown-nombre" id="dropdown-nombre">—</p>
+        <p class="topbar__dropdown-nivel" id="dropdown-nivel">Nivel 1 · 0 XP</p>
+        <div class="topbar__dropdown-divider"></div>
+        <button class="topbar__dropdown-salir" id="btn-salir">
+          <svg width="14" height="14"><use href="#i-logout"></use></svg>Salir de la sesión
+        </button>
+      </div>
     </div>
   </div>
 </header>
 
 <div class="layout" id="layout">
 
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
   <aside class="sidebar" id="sidebar"><!-- generado por JS --></aside>
 
   <div class="content-area">

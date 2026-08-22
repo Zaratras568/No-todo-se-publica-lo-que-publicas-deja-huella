@@ -7,6 +7,20 @@
    ============================================ */
 
 const sidebar = document.getElementById("sidebar");
+const sidebarBackdrop = document.getElementById("sidebar-backdrop");
+const btnMenuToggle = document.getElementById("btn-menu-toggle");
+
+/* ===== Drawer del sidebar en móvil ===== */
+
+btnMenuToggle.addEventListener("click", () => {
+  sidebar.classList.toggle("is-abierto");
+  sidebarBackdrop.classList.toggle("is-visible");
+});
+
+sidebarBackdrop.addEventListener("click", () => {
+  sidebar.classList.remove("is-abierto");
+  sidebarBackdrop.classList.remove("is-visible");
+});
 
 function renderSidebar() {
   if (!estado.nombre) { sidebar.innerHTML = ""; return; }

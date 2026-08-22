@@ -10,6 +10,11 @@ function mostrarVista(idVista) {
   document.getElementById(idVista)?.classList.add("is-active");
   layout.classList.toggle("layout--sin-sidebar", idVista === "view-inicio");
   window.scrollTo({ top: 0, behavior: "auto" });
+
+  // El drawer del sidebar (móvil) siempre se cierra al cambiar de vista,
+  // sin importar cómo se llegó a la navegación.
+  document.getElementById("sidebar")?.classList.remove("is-abierto");
+  document.getElementById("sidebar-backdrop")?.classList.remove("is-visible");
 }
 
 function volverAlPanel() {

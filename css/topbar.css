@@ -19,6 +19,17 @@
 .topbar__product-name { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; color: var(--ink); }
 .topbar__product-tag { font-size: 10.5px; color: var(--slate); white-space: nowrap; }
 
+/* ===== Botones de ícono (menú del índice / acceso al panel) ===== */
+
+.topbar__actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+.topbar__icon-btn {
+  display: none; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+  background: none; border: none; color: var(--slate);
+}
+.topbar__icon-btn:hover { background: var(--bg-soft); color: var(--ink); }
+
 /* ===== Usuario + menú desplegable ===== */
 
 .topbar__user { position: relative; }
@@ -61,12 +72,12 @@
 
 @media (max-width: 600px) {
   .topbar__product-tag { display: none; }
-  .topbar__brand { max-width: calc(100% - 56px); }
+  .topbar__brand { max-width: calc(100% - 130px); }
   .topbar__product-name {
     max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .topbar__user { position: absolute; top: 50%; right: clamp(16px, 4vw, 40px); transform: translateY(-50%); }
+  .topbar__icon-btn:not([hidden]) { display: flex; }
   .topbar__user-trigger .topbar__level { display: none; }
   .topbar__user-trigger { padding: 4px; background: transparent; }
-  .topbar__dropdown { right: 0; }
+  .topbar__dropdown { right: clamp(16px, 4vw, 40px); }
 }

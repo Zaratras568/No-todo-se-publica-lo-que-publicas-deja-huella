@@ -102,6 +102,7 @@ btnFinalizar.addEventListener("click", () => {
 function calcularResultado() {
   const modulo = MODULOS[moduloActivo];
   const datos = estado.modulos[modulo.id];
+  const indiceModulo = moduloActivo;
 
   const correctas = modulo.preguntas.filter((p, i) => testState.respuestas[i] === p.correcta).length;
   const puntaje = correctas / modulo.preguntas.length;
@@ -112,8 +113,24 @@ function calcularResultado() {
   if (aprobado) datos.testAprobado = true;
   guardarEstado();
 
+  // El progreso se refleja de inmediato al aprobar, no cuando el usuario
+  // decide volver al panel — así no depende de que dé ese clic.
+  renderPanel();
+  renderSidebar();
+
   const intentosRestantes = INTENTOS_MAXIMOS - datos.intentos;
   const puedeReintentar = !aprobado && intentosRestantes > 0;
+  const haySiguiente = aprobado && indiceModulo < MODULOS.length - 1;
+  const evaluacionDisponible = aprobado && !haySiguiente && todosLosModulosCompletos();
+
+  let accionPrincipal = "";
+  if (haySiguiente) {
+    accionPrincipal = `<button class="btn btn--primary" data-siguiente>Continuar a la siguiente misión</button>`;
+  } else if (evaluacionDisponible) {
+    accionPrincipal = `<button class="btn btn--primary" data-ir-evaluacion>Ir a la evaluación final</button>`;
+  } else if (puedeReintentar) {
+    accionPrincipal = `<button class="btn btn--primary" data-reintentar>Reintentar test</button>`;
+  }
 
   quizCard.innerHTML = `
     <div class="resultado__icono ${aprobado ? "es-aprobado" : "es-reprobado"}">
@@ -124,12 +141,12 @@ function calcularResultado() {
     <p class="resultado__intentos">${aprobado ? `Misión completada` : puedeReintentar ? `Te quedan ${intentosRestantes} intento(s) de ${INTENTOS_MAXIMOS}` : `Alcanzaste el máximo de ${INTENTOS_MAXIMOS} intentos. Contacta a tu profesor para más intentos.`}</p>
     <div class="resultado__acciones">
       <button class="btn btn--ghost" data-volver-panel>Volver al panel</button>
-      ${puedeReintentar ? `<button class="btn btn--primary" data-reintentar>Reintentar test</button>` : ""}
+      ${accionPrincipal}
     </div>
   `;
 
   quizCard.querySelector("[data-volver-panel]").addEventListener("click", volverAlPanel);
-  quizCard.querySelector("[data-reintentar]")?.addEventListener("click", () => abrirTest(moduloActivo));
-
-  renderSidebar();
+  quizCard.querySelector("[data-siguiente]")?.addEventListener("click", () => abrirContenido(indiceModulo + 1));
+  quizCard.querySelector("[data-ir-evaluacion]")?.addEventListener("click", () => mostrarVista("view-evaluacion"));
+  quizCard.querySelector("[data-reintentar]")?.addEventListener("click", () => abrirTest(indiceModulo));
 }
