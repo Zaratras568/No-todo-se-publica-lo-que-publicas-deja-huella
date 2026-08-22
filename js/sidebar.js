@@ -1,0 +1,66 @@
+/* ============================================
+   SIDEBAR — índice lateral del curso
+   Depende de: estado.js, navegacion.js
+   (abrirContenido/abrirTest se definen en
+   contenido.js/quiz.js, pero solo se usan aquí
+   dentro de callbacks, así que el orden no importa)
+   ============================================ */
+
+const sidebar = document.getElementById("sidebar");
+
+function renderSidebar() {
+  if (!estado.nombre) { sidebar.innerHTML = ""; return; }
+
+  let html = `<button class="sidebar__panel-link" data-ir-panel><svg width="15" height="15"><use href="#i-bars"></use></svg>Panel principal</button>`;
+  html += `<p class="sidebar__group-label">Misiones</p>`;
+
+  MODULOS.forEach((modulo, indice) => {
+    const datos = estado.modulos[modulo.id];
+    const bloqueado = !moduloDesbloqueado(indice);
+    const testListo = testDesbloqueado(indice);
+    const activo = moduloActivo === indice;
+
+    html += `<div class="sidebar__modulo ${bloqueado ? "is-bloqueado" : ""} ${datos.testAprobado ? "is-completado" : ""}">
+      <button class="sidebar__modulo-head" data-ir-contenido="${indice}" ${bloqueado ? "disabled" : ""}>
+        <span class="sidebar__modulo-num">${datos.testAprobado ? '<svg width="11" height="11"><use href="#i-check"></use></svg>' : indice + 1}</span>
+        ${modulo.titulo}
+      </button>
+      <div class="sidebar__sub-list">
+        <button class="sidebar__sub-item ${activo && document.getElementById("view-contenido").classList.contains("is-active") ? "is-activo" : ""} ${datos.contenidoVisto ? "is-completado" : ""}" data-ir-contenido="${indice}" ${bloqueado ? "disabled" : ""}>
+          <svg width="12" height="12"><use href="#i-play"></use></svg>Contenido
+        </button>
+        <button class="sidebar__sub-item ${activo && document.getElementById("view-test").classList.contains("is-active") ? "is-activo" : ""} ${datos.testAprobado ? "is-completado" : ""}" data-ir-test="${indice}" ${testListo ? "" : "disabled"}>
+          <svg width="12" height="12"><use href="#i-list"></use></svg>Test
+        </button>
+      </div>
+    </div>`;
+  });
+
+  const todosCompletos = todosLosModulosCompletos();
+  html += `<div class="sidebar__closing">
+    <button class="sidebar__modulo-head" data-ir-vista="view-evaluacion" ${todosCompletos ? "" : "disabled"}>
+      <span class="sidebar__modulo-num">${todosCompletos ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
+      Evaluación final
+    </button>
+    <button class="sidebar__modulo-head" data-ir-vista="view-certificado" ${estado.evaluacionAprobada ? "" : "disabled"}>
+      <span class="sidebar__modulo-num">${estado.evaluacionAprobada ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
+      Certificado
+    </button>
+  </div>`;
+
+  sidebar.innerHTML = html;
+}
+
+sidebar.addEventListener("click", (e) => {
+  const botonPanel = e.target.closest("[data-ir-panel]");
+  if (botonPanel) return volverAlPanel();
+
+  const botonContenido = e.target.closest("[data-ir-contenido]");
+  if (botonContenido && !botonContenido.disabled) return abrirContenido(Number(botonContenido.dataset.irContenido));
+
+  const botonTest = e.target.closest("[data-ir-test]");
+  if (botonTest && !botonTest.disabled) return abrirTest(Number(botonTest.dataset.irTest));
+
+  const botonVista = e.target.closest("[data-ir-vista]");
+  if (botonVista && !botonVista.disabled) return mostrarVista(botonVista.dataset.irVista);
+});

@@ -9,33 +9,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/topbar.css">
+<link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="css/paneles.css">
+<link rel="stylesheet" href="css/modulo.css">
+<link rel="stylesheet" href="css/quiz.css">
+<link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
 
 <!-- Iconos reutilizables (sin dependencias externas) -->
 <svg style="display:none">
-  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
-  </symbol>
-  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 6 9 17l-5-5"></path>
-  </symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path>
-  </symbol>
-  <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 20V10M12 20V4M18 20v-7"></path>
-  </symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3 4 6v6c0 4.5 3.4 7.7 8 9 4.6-1.3 8-4.5 8-9V6z"></path>
-  </symbol>
-  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M15 18l-6-6 6-6"></path>
-  </symbol>
-  <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="8" r="5"></circle><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5"></path>
-  </symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"></path></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 7.7 8 9 4.6-1.3 8-4.5 8-9V6z"></path></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5"></path></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"></path></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"></path></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></symbol>
 </svg>
 
 <header class="topbar">
@@ -44,178 +41,144 @@
     <span class="topbar__divider" aria-hidden="true"></span>
     <div class="topbar__product">
       <span class="topbar__product-name">No Todo Se Comparte</span>
-      <span class="topbar__product-tag">Vinculación con la Sociedad</span>
+      <span class="topbar__product-tag">REA · Vinculación con la Sociedad</span>
     </div>
   </div>
   <div class="topbar__user" id="user-pill" hidden>
-    <span class="topbar__avatar" id="avatar-iniciales">--</span>
-    <span class="topbar__level" id="nivel-label">Nivel 1 · 0 XP</span>
+    <button class="topbar__user-trigger" id="btn-user-trigger" aria-haspopup="true" aria-expanded="false">
+      <span class="topbar__avatar" id="avatar-iniciales">--</span>
+      <span class="topbar__level" id="nivel-label">Nivel 1 · 0 XP</span>
+      <svg width="11" height="11" class="topbar__chevron"><use href="#i-chevron"></use></svg>
+    </button>
+    <div class="topbar__dropdown" id="user-dropdown">
+      <p class="topbar__dropdown-nombre" id="dropdown-nombre">—</p>
+      <p class="topbar__dropdown-nivel" id="dropdown-nivel">Nivel 1 · 0 XP</p>
+      <div class="topbar__dropdown-divider"></div>
+      <button class="topbar__dropdown-salir" id="btn-salir">
+        <svg width="14" height="14"><use href="#i-logout"></use></svg>Salir de la sesión
+      </button>
+    </div>
   </div>
 </header>
 
-<main id="main">
+<div class="layout" id="layout">
 
-<!-- ================= INICIO (captura de nombre) ================= -->
-  <section class="view is-active" id="view-inicio">
-    <div class="hero">
-      <p class="hero__kicker">Recurso Educativo Abierto · Ciudadanía digital</p>
-      <h1 class="hero__title">No Todo Se Comparte</h1>
-      <p class="hero__lede">Aprende a proteger tu huella digital, tu privacidad y tu bienestar en redes sociales, misión por misión. Al terminar, obtienes un certificado de finalización.</p>
+  <aside class="sidebar" id="sidebar"><!-- generado por JS --></aside>
 
-      <form class="id-form" id="form-nombre">
-        <label for="input-nombre">¿Cómo te llamas?</label>
-        <div class="id-form__row">
-          <input type="text" id="input-nombre" name="nombre" placeholder="Nombre y apellido" autocomplete="name" required>
-          <button type="submit" class="btn btn--primary">Comenzar</button>
-        </div>
-        <p class="id-form__note">Tu nombre se guarda solo en este navegador. No se envía a ningún servidor.</p>
-      </form>
-    </div>
-  </section>
+  <div class="content-area">
 
-  <!-- ================= PANEL (menú de misiones) ================= -->
-  <section class="view" id="view-dashboard">
-    <div class="panel-head">
-      <div>
-        <p class="panel-head__kicker">Tu progreso</p>
-        <h2 class="panel-head__title" id="saludo-panel">Bienvenido/a</h2>
+    <!-- ================= INICIO (captura de nombre) ================= -->
+    <section class="view is-active" id="view-inicio">
+      <div class="hero">
+        <p class="hero__kicker">Recurso Educativo Abierto · Ciudadanía digital</p>
+        <h1 class="hero__title">No Todo Se Comparte</h1>
+        <p class="hero__lede">Aprende a proteger tu huella digital, tu privacidad y tu bienestar en redes sociales, misión por misión. Al terminar, obtienes un certificado de finalización.</p>
+
+        <form class="id-form" id="form-nombre">
+          <label for="input-nombre">¿Cómo te llamas?</label>
+          <div class="id-form__row">
+            <input type="text" id="input-nombre" name="nombre" placeholder="Nombre y apellido" autocomplete="name" required>
+            <button type="submit" class="btn btn--primary">Comenzar</button>
+          </div>
+          <p class="id-form__note">Tu nombre se guarda solo en este navegador. No se envía a ningún servidor.</p>
+        </form>
       </div>
-      <div class="progress-summary">
-        <div class="progress-summary__text">
-          <span id="progreso-texto">0 de 6 misiones completadas</span>
+    </section>
+
+    <!-- ================= PANEL (menú de misiones) ================= -->
+    <section class="view" id="view-dashboard">
+      <div class="panel-head">
+        <div>
+          <p class="panel-head__kicker">Tu progreso</p>
+          <h2 class="panel-head__title" id="saludo-panel">Bienvenido/a</h2>
         </div>
-        <div class="progress-bar"><div class="progress-bar__fill" id="progreso-fill"></div></div>
+        <div class="progress-summary">
+          <div class="progress-summary__text"><span id="progreso-texto">0 de 6 misiones completadas</span></div>
+          <div class="progress-bar"><div class="progress-bar__fill" id="progreso-fill"></div></div>
+        </div>
       </div>
-    </div>
 
-    <p class="section-label">Misiones</p>
-    <div class="mission-grid" id="mission-grid">
-      <!-- Las tarjetas de misión se generan con JavaScript a partir de MODULOS -->
-    </div>
+      <p class="section-label">Misiones</p>
+      <div class="mission-grid" id="mission-grid"><!-- generado por JS --></div>
 
-    <p class="section-label">Cierre del curso</p>
-    <div class="mission-grid mission-grid--closing">
-      <article class="mission-card" id="card-evaluacion" data-target="view-evaluacion">
-        <div class="mission-card__icon"><svg width="18" height="18"><use href="#i-bars"></use></svg></div>
-        <p class="mission-card__eyebrow">Cierre</p>
-        <h3 class="mission-card__title">Evaluación final</h3>
-        <p class="mission-card__desc" id="eval-mensaje-card">Completa las 6 misiones para desbloquearla.</p>
-        <span class="btn btn--locked">Bloqueada</span>
-      </article>
-      <article class="mission-card" id="card-certificado" data-target="view-certificado">
-        <div class="mission-card__icon"><svg width="18" height="18"><use href="#i-award"></use></svg></div>
-        <p class="mission-card__eyebrow">Cierre</p>
-        <h3 class="mission-card__title">Certificado</h3>
-        <p class="mission-card__desc" id="cert-mensaje-card">Aprueba la evaluación para desbloquearlo.</p>
-        <span class="btn btn--locked">Bloqueado</span>
-      </article>
-    </div>
-  </section>
+      <p class="section-label">Cierre del curso</p>
+      <div class="mission-grid mission-grid--closing">
+        <article class="mission-card" id="card-evaluacion" data-target="view-evaluacion">
+          <div class="mission-card__icon"><svg width="18" height="18"><use href="#i-bars"></use></svg></div>
+          <p class="mission-card__eyebrow">Cierre</p>
+          <h3 class="mission-card__title">Evaluación final</h3>
+          <p class="mission-card__desc" id="eval-mensaje-card">Completa las 6 misiones para desbloquearla.</p>
+          <span class="btn btn--locked">Bloqueada</span>
+        </article>
+        <article class="mission-card" id="card-certificado" data-target="view-certificado">
+          <div class="mission-card__icon"><svg width="18" height="18"><use href="#i-award"></use></svg></div>
+          <p class="mission-card__eyebrow">Cierre</p>
+          <h3 class="mission-card__title">Certificado</h3>
+          <p class="mission-card__desc" id="cert-mensaje-card">Aprueba la evaluación para desbloquearlo.</p>
+          <span class="btn btn--locked">Bloqueado</span>
+        </article>
+      </div>
+    </section>
 
-  <!-- ================= VISTA DE MÓDULO (plantilla x6) ================= -->
-  <!-- Misión 01 -->
-  <section class="view module-view" id="view-modulo-1" data-module="modulo1">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Misión 01 de 6</p>
-    <h2 class="module-view__title">Huella digital</h2>
-    <p class="module-view__lede">Qué es la huella digital, por qué no se borra fácilmente y cómo tus publicaciones de hoy pueden encontrarte en el futuro.</p>
-    <div class="content-slot">Espacio para video / contenido del módulo</div>
-    <div class="content-slot content-slot--sm">Espacio para actividad práctica</div>
-    <div class="module-view__actions">
-      <button class="btn btn--ghost" data-back>Volver al panel</button>
-      <button class="btn btn--primary" data-complete="modulo1">Marcar misión como completada</button>
-    </div>
-  </section>
+    <!-- ================= CONTENIDO DE MÓDULO (genérico) ================= -->
+    <section class="view module-view" id="view-contenido">
+      <div class="module-topbar">
+        <button class="back-link" id="btn-volver-contenido"><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
+        <button class="btn btn--primary btn--sm" id="btn-ir-test" disabled>Ir al test</button>
+      </div>
+      <p class="module-view__kicker" id="contenido-kicker">Misión — · Contenido</p>
+      <h2 class="module-view__title" id="contenido-titulo">—</h2>
+      <p class="module-view__lede" id="contenido-lede">—</p>
+      <div class="content-slot">Espacio para el video del módulo</div>
+      <div class="video-check">
+        <button class="link-btn" id="btn-marcar-visto">Marcar video como visto <span class="video-check__hint">(temporal, hasta integrar el video real)</span></button>
+        <span class="video-check__done" id="video-check-done" hidden><svg width="14" height="14"><use href="#i-check"></use></svg>Video visto</span>
+      </div>
+    </section>
 
-  <!-- Misión 02 -->
-  <section class="view module-view" id="view-modulo-2" data-module="modulo2">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Misión 02 de 6</p>
-    <h2 class="module-view__title">Privacidad</h2>
-    <p class="module-view__lede">Cómo configurar la privacidad de tus cuentas y decidir con criterio qué compartir y con quién.</p>
-    <div class="content-slot">Espacio para video / contenido del módulo</div>
-    <div class="content-slot content-slot--sm">Espacio para actividad práctica</div>
-    <div class="module-view__actions">
-      <button class="btn btn--ghost" data-back>Volver al panel</button>
-      <button class="btn btn--primary" data-complete="modulo2">Marcar misión como completada</button>
-    </div>
-  </section>
+    <!-- ================= TEST DE MÓDULO (genérico) ================= -->
+    <section class="view module-view" id="view-test">
+      <div class="module-topbar">
+        <button class="back-link" id="btn-volver-test"><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al contenido</button>
+        <span class="intento-label" id="intento-label">Intento 1 de 3</span>
+      </div>
+      <p class="module-view__kicker" id="test-kicker">Misión — · Test</p>
 
-  <!-- Misión 03 -->
-  <section class="view module-view" id="view-modulo-3" data-module="modulo3">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Misión 03 de 6</p>
-    <h2 class="module-view__title">Ciberacoso</h2>
-    <p class="module-view__lede">Cómo identificar el ciberacoso, qué hacer si te ocurre a ti o a alguien cercano, y dónde pedir ayuda.</p>
-    <div class="content-slot">Espacio para video / contenido del módulo</div>
-    <div class="content-slot content-slot--sm">Espacio para actividad práctica</div>
-    <div class="module-view__actions">
-      <button class="btn btn--ghost" data-back>Volver al panel</button>
-      <button class="btn btn--primary" data-complete="modulo3">Marcar misión como completada</button>
-    </div>
-  </section>
+      <div class="quiz">
+        <div class="quiz__dots" id="quiz-dots"></div>
+        <div class="quiz__card" id="quiz-card"><!-- pregunta, spinner o resultado --></div>
+        <div class="quiz__nav" id="quiz-nav">
+          <button class="btn btn--ghost btn--sm" id="btn-pregunta-anterior">‹ Anterior</button>
+          <button class="btn btn--primary" id="btn-finalizar-test" disabled>Finalizar test</button>
+          <button class="btn btn--ghost btn--sm" id="btn-pregunta-siguiente">Siguiente ›</button>
+        </div>
+      </div>
+    </section>
 
-  <!-- Misión 04 -->
-  <section class="view module-view" id="view-modulo-4" data-module="modulo4">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Misión 04 de 6</p>
-    <h2 class="module-view__title">Desinformación</h2>
-    <p class="module-view__lede">Cómo reconocer noticias falsas y verificar información antes de compartirla.</p>
-    <div class="content-slot">Espacio para video / contenido del módulo</div>
-    <div class="content-slot content-slot--sm">Espacio para actividad práctica</div>
-    <div class="module-view__actions">
-      <button class="btn btn--ghost" data-back>Volver al panel</button>
-      <button class="btn btn--primary" data-complete="modulo4">Marcar misión como completada</button>
-    </div>
-  </section>
+    <!-- ================= EVALUACIÓN FINAL ================= -->
+    <section class="view module-view" id="view-evaluacion">
+      <div class="module-topbar">
+        <button class="back-link" data-back-dashboard><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
+      </div>
+      <p class="module-view__kicker">Cierre del curso</p>
+      <h2 class="module-view__title">Evaluación final</h2>
+      <p class="module-view__lede" id="eval-mensaje">Completa las 6 misiones para desbloquear la evaluación.</p>
+      <div class="content-slot">Espacio para las preguntas de la evaluación (mismo mecanismo de test, por conectar)</div>
+    </section>
 
-  <!-- Misión 05 -->
-  <section class="view module-view" id="view-modulo-5" data-module="modulo5">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Misión 05 de 6</p>
-    <h2 class="module-view__title">Bienestar digital</h2>
-    <p class="module-view__lede">Cómo equilibrar el tiempo en pantalla y reconocer cuándo las redes sociales afectan tu ánimo.</p>
-    <div class="content-slot">Espacio para video / contenido del módulo</div>
-    <div class="content-slot content-slot--sm">Espacio para actividad práctica</div>
-    <div class="module-view__actions">
-      <button class="btn btn--ghost" data-back>Volver al panel</button>
-      <button class="btn btn--primary" data-complete="modulo5">Marcar misión como completada</button>
-    </div>
-  </section>
+    <!-- ================= CERTIFICADO ================= -->
+    <section class="view module-view" id="view-certificado">
+      <div class="module-topbar">
+        <button class="back-link" data-back-dashboard><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
+      </div>
+      <p class="module-view__kicker">Cierre del curso</p>
+      <h2 class="module-view__title">Certificado</h2>
+      <p class="module-view__lede" id="cert-mensaje">Aprueba la evaluación final para desbloquear tu certificado.</p>
+      <div class="content-slot">Espacio para la vista previa y descarga del certificado</div>
+    </section>
 
-  <!-- Misión 06 -->
-  <section class="view module-view" id="view-modulo-6" data-module="modulo6">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Misión 06 de 6</p>
-    <h2 class="module-view__title">Uso responsable</h2>
-    <p class="module-view__lede">Buenas prácticas para publicar, comentar e interactuar de forma responsable en redes sociales.</p>
-    <div class="content-slot">Espacio para video / contenido del módulo</div>
-    <div class="content-slot content-slot--sm">Espacio para actividad práctica</div>
-    <div class="module-view__actions">
-      <button class="btn btn--ghost" data-back>Volver al panel</button>
-      <button class="btn btn--primary" data-complete="modulo6">Marcar misión como completada</button>
-    </div>
-  </section>
-
-  <!-- ================= EVALUACIÓN ================= -->
-  <section class="view module-view" id="view-evaluacion">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Cierre del curso</p>
-    <h2 class="module-view__title">Evaluación final</h2>
-    <p class="module-view__lede" id="eval-mensaje">Completa las 6 misiones para desbloquear la evaluación.</p>
-    <div class="content-slot">Espacio para las preguntas de la evaluación</div>
-  </section>
-
-  <!-- ================= CERTIFICADO ================= -->
-  <section class="view module-view" id="view-certificado">
-    <button class="back-link" data-back><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-    <p class="module-view__kicker">Cierre del curso</p>
-    <h2 class="module-view__title">Certificado</h2>
-    <p class="module-view__lede" id="cert-mensaje">Aprueba la evaluación final para desbloquear tu certificado.</p>
-    <div class="content-slot">Espacio para la vista previa y descarga del certificado</div>
-  </section>
-
-</main>
+  </div>
+</div>
 
 <footer class="site-footer">
   <img src="img/icono-vinculacion.png" alt="" class="site-footer__icon" aria-hidden="true">
@@ -223,9 +186,14 @@
   <span>Vinculación con la Sociedad · Universidad ECOTEC</span>
 </footer>
 
-<script src="js/curso.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/estado.js"></script>
+<script src="js/navegacion.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/identidad.js"></script>
+<script src="js/contenido.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/init.js"></script>
 </body>
 </html>
-
-
-  </main>

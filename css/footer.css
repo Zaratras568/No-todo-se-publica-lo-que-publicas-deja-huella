@@ -1,0 +1,11 @@
+/* ============================================
+   FOOTER — crédito institucional
+   ============================================ */
+
+.site-footer {
+  display: flex; align-items: center; gap: 12px; justify-content: center;
+  padding: 28px; border-top: 1px solid var(--border); color: var(--slate);
+  font-size: 12px; flex-shrink: 0;
+}
+.site-footer__logo { height: 20px; width: auto; opacity: 0.85; }
+.site-footer__icon { height: 26px; width: auto; }

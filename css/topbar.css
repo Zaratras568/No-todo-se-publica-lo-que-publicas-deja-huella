@@ -1,0 +1,72 @@
+/* ============================================
+   TOPBAR — encabezado con logo, marca y usuario
+   ============================================ */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(20px, 4vw, 40px);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.topbar__brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.topbar__logo { height: 32px; width: auto; display: block; padding: 4px 8px; flex-shrink: 0; }
+.topbar__divider { width: 1px; height: 28px; background: var(--border); flex-shrink: 0; }
+.topbar__product { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.topbar__product-name { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; color: var(--ink); }
+.topbar__product-tag { font-size: 10.5px; color: var(--slate); white-space: nowrap; }
+
+/* ===== Usuario + menú desplegable ===== */
+
+.topbar__user { position: relative; }
+
+.topbar__user-trigger {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-soft); border: none; border-radius: 20px; padding: 6px 12px 6px 6px;
+}
+.topbar__user-trigger:hover { background: var(--bg-tint); }
+
+.topbar__avatar {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff;
+  font-size: 10.5px; font-weight: 700; font-family: var(--font-display);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.topbar__level { font-size: 12px; font-weight: 500; color: var(--slate); }
+.topbar__chevron { color: var(--slate); transition: transform 0.15s ease; flex-shrink: 0; }
+.topbar__user.is-abierto .topbar__chevron { transform: rotate(90deg); }
+
+.topbar__dropdown {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(22, 35, 46, 0.14);
+  padding: 14px; min-width: 210px; display: none; z-index: 30;
+}
+.topbar__user.is-abierto .topbar__dropdown { display: block; }
+
+.topbar__dropdown-nombre { font-family: var(--font-display); font-weight: 700; font-size: 13.5px; color: var(--ink); margin: 0 0 2px; }
+.topbar__dropdown-nivel { font-size: 11.5px; color: var(--slate); margin: 0; }
+.topbar__dropdown-divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+.topbar__dropdown-salir {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  background: none; border: none; color: var(--danger);
+  font-family: var(--font-body); font-size: 12.5px; font-weight: 600; padding: 0;
+}
+.topbar__dropdown-salir:hover { text-decoration: underline; }
+
+/* ===== Móvil: el usuario se superpone en vez de chocar con la marca ===== */
+
+@media (max-width: 600px) {
+  .topbar__product-tag { display: none; }
+  .topbar__brand { max-width: calc(100% - 56px); }
+  .topbar__product-name {
+    max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .topbar__user { position: absolute; top: 50%; right: clamp(16px, 4vw, 40px); transform: translateY(-50%); }
+  .topbar__user-trigger .topbar__level { display: none; }
+  .topbar__user-trigger { padding: 4px; background: transparent; }
+  .topbar__dropdown { right: 0; }
+}
