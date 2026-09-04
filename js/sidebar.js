@@ -76,5 +76,8 @@ sidebar.addEventListener("click", (e) => {
   if (botonTest && !botonTest.disabled) return abrirTest(Number(botonTest.dataset.irTest));
 
   const botonVista = e.target.closest("[data-ir-vista]");
-  if (botonVista && !botonVista.disabled) return mostrarVista(botonVista.dataset.irVista);
+  if (botonVista && !botonVista.disabled) {
+    if (botonVista.dataset.irVista === "view-certificado") return abrirCertificado();
+    return mostrarVista(botonVista.dataset.irVista);
+  }
 });

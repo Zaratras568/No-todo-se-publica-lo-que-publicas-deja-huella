@@ -15,10 +15,10 @@
 <link rel="stylesheet" href="css/paneles.css">
 <link rel="stylesheet" href="css/modulo.css">
 <link rel="stylesheet" href="css/quiz.css">
+<link rel="stylesheet" href="css/certificado.css">
 <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
-
 <!-- Iconos reutilizables (sin dependencias externas) -->
 <svg style="display:none">
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></symbol>
@@ -43,7 +43,7 @@
     <span class="topbar__divider" aria-hidden="true"></span>
     <div class="topbar__product">
       <span class="topbar__product-name">No Todo Se Comparte</span>
-      <span class="topbar__product-tag">REA · Vinculación con la Sociedad</span>
+      <span class="topbar__product-tag">Lo que publicas deja huella</span>
     </div>
   </div>
   <div class="topbar__actions">
@@ -174,24 +174,52 @@
       <p class="module-view__kicker">Cierre del curso</p>
       <h2 class="module-view__title">Evaluación final</h2>
       <p class="module-view__lede" id="eval-mensaje">Completa las 6 misiones para desbloquear la evaluación.</p>
-      <div class="content-slot">Espacio para las preguntas de la evaluación (mismo mecanismo de test, por conectar)</div>
+      <button class="btn btn--primary" id="btn-comenzar-evaluacion" hidden>Comenzar evaluación</button>
     </section>
 
     <!-- ================= CERTIFICADO ================= -->
     <section class="view module-view" id="view-certificado">
       <div class="module-topbar">
         <button class="back-link" data-back-dashboard><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
+        <button class="btn btn--ghost btn--sm no-imprimir" id="btn-imprimir-certificado" hidden>Descargar / imprimir</button>
       </div>
-      <p class="module-view__kicker">Cierre del curso</p>
-      <h2 class="module-view__title">Certificado</h2>
-      <p class="module-view__lede" id="cert-mensaje">Aprueba la evaluación final para desbloquear tu certificado.</p>
-      <div class="content-slot">Espacio para la vista previa y descarga del certificado</div>
+      <p class="module-view__kicker no-imprimir">Cierre del curso</p>
+      <h2 class="module-view__title no-imprimir">Certificado</h2>
+      <p class="module-view__lede no-imprimir" id="cert-mensaje">Aprueba la evaluación final para desbloquear tu certificado.</p>
+
+      <div class="certificado" id="certificado-card" hidden>
+        <div class="certificado__franja">
+          <div class="certificado__franja-icono"><svg width="24" height="24"><use href="#i-award"></use></svg></div>
+        </div>
+        <div class="certificado__cuerpo">
+          <img src="img/logo-ecotec.png" alt="Universidad ECOTEC" class="certificado__logo">
+
+          <p class="certificado__acredita">Para acreditar que</p>
+          <p class="certificado__nombre" id="cert-nombre">—</p>
+
+          <p class="certificado__acredita">Completó y aprobó el curso</p>
+          <p class="certificado__curso">"No Todo Se Comparte"</p>
+          <p class="certificado__curso-sub">Recurso Educativo Abierto de Ciudadanía Digital</p>
+
+          <div class="certificado__detalle-row">
+            <span id="cert-avance">Avance: 100%</span>
+            <span id="cert-puntaje">Puntaje: —</span>
+          </div>
+
+          <p class="certificado__lugar-fecha" id="cert-lugar-fecha">Dado en Samborondón, provincia del Guayas, República del Ecuador.</p>
+
+          <div class="certificado__footer">
+            <img src="img/icono-vinculacion.png" alt="" class="certificado__footer-icono" aria-hidden="true">
+            <span>Vinculación con la Sociedad · Universidad ECOTEC</span>
+          </div>
+        </div>
+      </div>
     </section>
 
   </div>
 </div>
 
-<footer class="site-footer">
+<footer class="site-footer no-imprimir">
   <img src="img/icono-vinculacion.png" alt="" class="site-footer__icon" aria-hidden="true">
   <img src="img/logo-ecotec.png" alt="Universidad ECOTEC" class="site-footer__logo">
   <span>Vinculación con la Sociedad · Universidad ECOTEC</span>
@@ -205,6 +233,7 @@
 <script src="js/identidad.js"></script>
 <script src="js/contenido.js"></script>
 <script src="js/quiz.js"></script>
+<script src="js/certificado.js"></script>
 <script src="js/init.js"></script>
 </body>
 </html>

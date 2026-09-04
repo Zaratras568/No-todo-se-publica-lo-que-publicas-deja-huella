@@ -49,6 +49,7 @@ function renderPanel() {
   cardEval.classList.toggle("is-bloqueada", !todosCompletos);
   document.getElementById("eval-mensaje-card").textContent = todosCompletos ? "Todas las misiones están completas. ¡Ya puedes rendirla!" : "Completa las 6 misiones para desbloquearla.";
   document.getElementById("eval-mensaje").textContent = todosCompletos ? "Todas las misiones están completas. Puedes rendir la evaluación final." : "Completa las 6 misiones para desbloquear la evaluación.";
+  document.getElementById("btn-comenzar-evaluacion").hidden = !todosCompletos;
   const botonEval = cardEval.querySelector(".btn");
   botonEval.className = todosCompletos ? "btn btn--primary" : "btn btn--locked";
   botonEval.textContent = todosCompletos ? "Comenzar" : "Bloqueada";
@@ -64,3 +65,10 @@ function renderPanel() {
 
   actualizarIdentidad();
 }
+
+document.getElementById("card-evaluacion").addEventListener("click", () => {
+  if (todosLosModulosCompletos()) mostrarVista("view-evaluacion");
+});
+document.getElementById("card-certificado").addEventListener("click", () => {
+  if (estado.evaluacionAprobada) abrirCertificado();
+});

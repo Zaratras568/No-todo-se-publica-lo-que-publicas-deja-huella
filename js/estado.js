@@ -10,7 +10,9 @@ function estadoPorDefecto() {
     modulos: Object.fromEntries(
       MODULOS.map((m) => [m.id, { contenidoVisto: false, testAprobado: false, intentos: 0, mejorPuntaje: 0 }])
     ),
+    evaluacion: { intentos: 0, mejorPuntaje: 0 },
     evaluacionAprobada: false,
+    fechaCertificado: null,
   };
 }
 
@@ -19,7 +21,12 @@ function cargarEstado() {
     const guardado = localStorage.getItem(CLAVE_ESTADO);
     if (!guardado) return estadoPorDefecto();
     const datos = JSON.parse(guardado);
-    return { ...estadoPorDefecto(), ...datos, modulos: { ...estadoPorDefecto().modulos, ...(datos.modulos || {}) } };
+    return {
+      ...estadoPorDefecto(),
+      ...datos,
+      modulos: { ...estadoPorDefecto().modulos, ...(datos.modulos || {}) },
+      evaluacion: { ...estadoPorDefecto().evaluacion, ...(datos.evaluacion || {}) },
+    };
   } catch {
     return estadoPorDefecto();
   }

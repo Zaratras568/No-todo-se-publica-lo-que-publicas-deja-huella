@@ -1,6 +1,8 @@
 /* ============================================
    QUIZ — preguntas centradas, navegación libre
-   y cálculo de resultado con máximo de intentos
+   y cálculo de resultado con máximo de intentos.
+   Sirve tanto para el test de un módulo como para
+   la evaluación final (controlado por enEvaluacion).
    Depende de: estado.js, navegacion.js, sidebar.js, contenido.js
    ============================================ */
 
@@ -11,26 +13,53 @@ const btnSiguiente = document.getElementById("btn-pregunta-siguiente");
 const btnFinalizar = document.getElementById("btn-finalizar-test");
 const quizNav = document.getElementById("quiz-nav");
 const intentoLabel = document.getElementById("intento-label");
+const btnComenzarEvaluacion = document.getElementById("btn-comenzar-evaluacion");
+
+let enEvaluacion = false;
+
+/* Devuelve las preguntas y el registro de progreso del test actual,
+   sea el de un módulo o el de la evaluación final. */
+function preguntasActuales() {
+  return enEvaluacion ? EVALUACION_FINAL.preguntas : MODULOS[moduloActivo].preguntas;
+}
+function datosProgresoActuales() {
+  return enEvaluacion ? estado.evaluacion : estado.modulos[MODULOS[moduloActivo].id];
+}
 
 function abrirTest(indice) {
   if (!testDesbloqueado(indice)) return;
+  enEvaluacion = false;
   moduloActivo = indice;
-  const modulo = MODULOS[indice];
-  const datos = estado.modulos[modulo.id];
+  const datos = estado.modulos[MODULOS[indice].id];
 
   document.getElementById("test-kicker").textContent = `Misión 0${indice + 1} · Test`;
   intentoLabel.textContent = `Intento ${Math.min(datos.intentos + 1, INTENTOS_MAXIMOS)} de ${INTENTOS_MAXIMOS}`;
 
-  testState = { respuestas: new Array(modulo.preguntas.length).fill(null), indiceActual: 0 };
-  quizNav.style.display = "flex";
-  renderPregunta();
-  renderSidebar();
-  mostrarVista("view-test");
+  iniciarTest();
 }
 
+function abrirEvaluacion() {
+  if (!todosLosModulosCompletos()) return;
+  enEvaluacion = true;
+
+  document.getElementById("test-kicker").textContent = "Evaluación final";
+  intentoLabel.textContent = `Intento ${Math.min(estado.evaluacion.intentos + 1, INTENTOS_MAXIMOS)} de ${INTENTOS_MAXIMOS}`;
+
+  iniciarTest();
+}
+
+function iniciarTest() {
+  testState = { respuestas: new Array(preguntasActuales().length).fill(null), indiceActual: 0 };
+  quizNav.style.display = "flex";
+  renderPregunta();
+  mostrarVista("view-test");
+  renderSidebar();
+}
+
+btnComenzarEvaluacion.addEventListener("click", abrirEvaluacion);
+
 function renderDots() {
-  const modulo = MODULOS[moduloActivo];
-  quizDots.innerHTML = modulo.preguntas
+  quizDots.innerHTML = preguntasActuales()
     .map((_, i) => {
       const clases = ["quiz__dot"];
       if (i === testState.indiceActual) clases.push("is-actual");
@@ -41,9 +70,8 @@ function renderDots() {
 }
 
 function renderPregunta() {
-  const modulo = MODULOS[moduloActivo];
   const i = testState.indiceActual;
-  const pregunta = modulo.preguntas[i];
+  const pregunta = preguntasActuales()[i];
   const seleccion = testState.respuestas[i];
 
   renderDots();
@@ -63,7 +91,7 @@ function renderPregunta() {
   `;
 
   btnAnterior.disabled = i === 0;
-  btnSiguiente.disabled = i === modulo.preguntas.length - 1;
+  btnSiguiente.disabled = i === preguntasActuales().length - 1;
   btnFinalizar.disabled = testState.respuestas.some((r) => r === null);
 }
 
@@ -85,11 +113,13 @@ btnAnterior.addEventListener("click", () => {
   if (testState.indiceActual > 0) { testState.indiceActual--; renderPregunta(); }
 });
 btnSiguiente.addEventListener("click", () => {
-  const modulo = MODULOS[moduloActivo];
-  if (testState.indiceActual < modulo.preguntas.length - 1) { testState.indiceActual++; renderPregunta(); }
+  if (testState.indiceActual < preguntasActuales().length - 1) { testState.indiceActual++; renderPregunta(); }
 });
 
-document.getElementById("btn-volver-test").addEventListener("click", () => abrirContenido(moduloActivo));
+document.getElementById("btn-volver-test").addEventListener("click", () => {
+  if (enEvaluacion) mostrarVista("view-evaluacion");
+  else abrirContenido(moduloActivo);
+});
 
 btnFinalizar.addEventListener("click", () => {
   quizNav.style.display = "none";
@@ -100,17 +130,25 @@ btnFinalizar.addEventListener("click", () => {
 });
 
 function calcularResultado() {
-  const modulo = MODULOS[moduloActivo];
-  const datos = estado.modulos[modulo.id];
+  const preguntas = preguntasActuales();
+  const datos = datosProgresoActuales();
   const indiceModulo = moduloActivo;
+  const esEvaluacion = enEvaluacion;
 
-  const correctas = modulo.preguntas.filter((p, i) => testState.respuestas[i] === p.correcta).length;
-  const puntaje = correctas / modulo.preguntas.length;
+  const correctas = preguntas.filter((p, i) => testState.respuestas[i] === p.correcta).length;
+  const puntaje = correctas / preguntas.length;
   const aprobado = puntaje >= PORCENTAJE_APROBACION;
 
   datos.intentos += 1;
   datos.mejorPuntaje = Math.max(datos.mejorPuntaje, puntaje);
-  if (aprobado) datos.testAprobado = true;
+  if (aprobado) {
+    if (esEvaluacion) {
+      estado.evaluacionAprobada = true;
+      if (!estado.fechaCertificado) estado.fechaCertificado = new Date().toISOString();
+    } else {
+      datos.testAprobado = true;
+    }
+  }
   guardarEstado();
 
   // El progreso se refleja de inmediato al aprobar, no cuando el usuario
@@ -120,14 +158,17 @@ function calcularResultado() {
 
   const intentosRestantes = INTENTOS_MAXIMOS - datos.intentos;
   const puedeReintentar = !aprobado && intentosRestantes > 0;
-  const haySiguiente = aprobado && indiceModulo < MODULOS.length - 1;
-  const evaluacionDisponible = aprobado && !haySiguiente && todosLosModulosCompletos();
+  const haySiguiente = !esEvaluacion && aprobado && indiceModulo < MODULOS.length - 1;
+  const evaluacionDisponible = !esEvaluacion && aprobado && !haySiguiente && todosLosModulosCompletos();
+  const certificadoDisponible = esEvaluacion && aprobado;
 
   let accionPrincipal = "";
   if (haySiguiente) {
     accionPrincipal = `<button class="btn btn--primary" data-siguiente>Continuar a la siguiente misión</button>`;
   } else if (evaluacionDisponible) {
     accionPrincipal = `<button class="btn btn--primary" data-ir-evaluacion>Ir a la evaluación final</button>`;
+  } else if (certificadoDisponible) {
+    accionPrincipal = `<button class="btn btn--primary" data-ir-certificado>Ir al certificado</button>`;
   } else if (puedeReintentar) {
     accionPrincipal = `<button class="btn btn--primary" data-reintentar>Reintentar test</button>`;
   }
@@ -137,8 +178,8 @@ function calcularResultado() {
       <svg width="26" height="26"><use href="#${aprobado ? "i-check" : "i-x"}"></use></svg>
     </div>
     <h3 class="resultado__titulo">${aprobado ? "¡Aprobado!" : "Necesitas repasar un poco más"}</h3>
-    <p class="resultado__puntaje">${correctas} de ${modulo.preguntas.length} correctas (${Math.round(puntaje * 100)}%)</p>
-    <p class="resultado__intentos">${aprobado ? `Misión completada` : puedeReintentar ? `Te quedan ${intentosRestantes} intento(s) de ${INTENTOS_MAXIMOS}` : `Alcanzaste el máximo de ${INTENTOS_MAXIMOS} intentos. Contacta a tu profesor para más intentos.`}</p>
+    <p class="resultado__puntaje">${correctas} de ${preguntas.length} correctas (${Math.round(puntaje * 100)}%)</p>
+    <p class="resultado__intentos">${aprobado ? (esEvaluacion ? "Evaluación completada" : "Misión completada") : puedeReintentar ? `Te quedan ${intentosRestantes} intento(s) de ${INTENTOS_MAXIMOS}` : `Alcanzaste el máximo de ${INTENTOS_MAXIMOS} intentos. Contacta a tu profesor para más intentos.`}</p>
     <div class="resultado__acciones">
       <button class="btn btn--ghost" data-volver-panel>Volver al panel</button>
       ${accionPrincipal}
@@ -147,6 +188,7 @@ function calcularResultado() {
 
   quizCard.querySelector("[data-volver-panel]").addEventListener("click", volverAlPanel);
   quizCard.querySelector("[data-siguiente]")?.addEventListener("click", () => abrirContenido(indiceModulo + 1));
-  quizCard.querySelector("[data-ir-evaluacion]")?.addEventListener("click", () => mostrarVista("view-evaluacion"));
-  quizCard.querySelector("[data-reintentar]")?.addEventListener("click", () => abrirTest(indiceModulo));
+  quizCard.querySelector("[data-ir-evaluacion]")?.addEventListener("click", abrirEvaluacion);
+  quizCard.querySelector("[data-ir-certificado]")?.addEventListener("click", abrirCertificado);
+  quizCard.querySelector("[data-reintentar]")?.addEventListener("click", () => (esEvaluacion ? abrirEvaluacion() : abrirTest(indiceModulo)));
 }
