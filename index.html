@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
+
 <!-- Iconos reutilizables (sin dependencias externas) -->
 <svg style="display:none">
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></symbol>
@@ -179,9 +180,9 @@
 
     <!-- ================= CERTIFICADO ================= -->
     <section class="view module-view" id="view-certificado">
-      <div class="module-topbar">
+      <div class="module-topbar no-imprimir">
         <button class="back-link" data-back-dashboard><svg width="16" height="16"><use href="#i-back"></use></svg>Volver al panel</button>
-        <button class="btn btn--ghost btn--sm no-imprimir" id="btn-imprimir-certificado" hidden>Descargar / imprimir</button>
+        <button class="btn btn--ghost btn--sm no-imprimir" id="btn-imprimir-certificado" hidden>Descargar PDF</button>
       </div>
       <p class="module-view__kicker no-imprimir">Cierre del curso</p>
       <h2 class="module-view__title no-imprimir">Certificado</h2>
@@ -225,6 +226,8 @@
   <span>Vinculación con la Sociedad · Universidad ECOTEC</span>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="js/datos.js"></script>
 <script src="js/estado.js"></script>
 <script src="js/navegacion.js"></script>
