@@ -44,6 +44,7 @@
 .certificado__nombre {
   font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--ink);
   margin: 0 0 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
 }
 
 .certificado__curso { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--blue); margin: 0 0 2px; }
@@ -68,9 +69,10 @@
 /* ===== Impresión / "Descargar" (imprimir a PDF desde el navegador) ===== */
 
 @media print {
+  @page { size: landscape; margin: 12mm; }
   .no-imprimir, .topbar, .sidebar, .sidebar-backdrop, .site-footer { display: none !important; }
   body { background: #fff; }
   .content-area { max-width: 100%; padding: 0; }
   .module-view { max-width: 100%; padding: 0; }
-  .certificado { box-shadow: none; border: 2px solid var(--blue); margin: 0 auto; }
+  .certificado { box-shadow: none; border: 2px solid var(--blue); margin: 0 auto; max-width: 100%; }
 }
