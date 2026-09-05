@@ -63,3 +63,16 @@ const MODULOS = [
     ],
   },
 ];
+
+/* Evaluación final — de prueba, combina los 6 temas. Reemplázala por la versión definitiva. */
+const EVALUACION_FINAL = {
+  titulo: "Evaluación final",
+  preguntas: [
+    { pregunta: "¿Por qué es importante cuidar tu huella digital?", opciones: ["Porque lo que publicas puede permanecer y encontrarte en el futuro", "Porque internet borra todo automáticamente a los 30 días", "No es realmente importante"], correcta: 0 },
+    { pregunta: "¿Qué deberías revisar antes de compartir tu ubicación?", opciones: ["Nada, siempre es seguro", "Si es realmente necesario compartirla", "Solo si tienes muchos seguidores"], correcta: 1 },
+    { pregunta: "Si presencias ciberacoso hacia otra persona, lo correcto es...", opciones: ["Ignorarlo", "Sumarte a los comentarios", "Reportarlo y buscar ayuda de un adulto de confianza"], correcta: 2 },
+    { pregunta: "Antes de compartir una noticia impactante, deberías...", opciones: ["Compartirla de inmediato para avisar a todos", "Verificar la fuente primero", "Solo mirar el titular"], correcta: 1 },
+    { pregunta: "Una señal de que necesitas una pausa de redes sociales es...", opciones: ["Sentirte ansioso o comparándote todo el tiempo", "Sentirte con más energía", "Dormir mejor que nunca"], correcta: 0 },
+    { pregunta: "Ser un buen ciudadano digital significa...", opciones: ["Tener muchos seguidores", "Tratar a otros con respeto también en línea", "Publicar todos los días sin excepción"], correcta: 1 },
+  ],
+};

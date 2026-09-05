@@ -22,10 +22,9 @@ function abrirContenido(indice) {
   btnIrTest.disabled = !datos.contenidoVisto;
   btnIrTest.textContent = "Ir al test";
 
-  renderSidebar();
   mostrarVista("view-contenido");
+  renderSidebar();
 }
-
 btnMarcarVisto.addEventListener("click", () => {
   if (moduloActivo === null) return;
   const modulo = MODULOS[moduloActivo];

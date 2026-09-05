@@ -3,6 +3,12 @@
    y cálculo de resultado con máximo de intentos.
    Sirve tanto para el test de un módulo como para
    la evaluación final (controlado por enEvaluacion).
+
+   IMPORTANTE: un test ya aprobado NUNCA se reinicia
+   solo al volver a entrar — se muestra un resumen
+   con el resultado guardado y botones para continuar
+   o, si el usuario lo pide explícitamente, repetirlo.
+
    Depende de: estado.js, navegacion.js, sidebar.js, contenido.js
    ============================================ */
 
@@ -33,7 +39,11 @@ function abrirTest(indice) {
   const datos = estado.modulos[MODULOS[indice].id];
 
   document.getElementById("test-kicker").textContent = `Misión 0${indice + 1} · Test`;
-  intentoLabel.textContent = `Intento ${Math.min(datos.intentos + 1, INTENTOS_MAXIMOS)} de ${INTENTOS_MAXIMOS}`;
+
+  if (datos.testAprobado) {
+    mostrarResumenAprobado();
+    return;
+  }
 
   iniciarTest();
 }
@@ -43,15 +53,66 @@ function abrirEvaluacion() {
   enEvaluacion = true;
 
   document.getElementById("test-kicker").textContent = "Evaluación final";
-  intentoLabel.textContent = `Intento ${Math.min(estado.evaluacion.intentos + 1, INTENTOS_MAXIMOS)} de ${INTENTOS_MAXIMOS}`;
+
+  if (estado.evaluacionAprobada) {
+    mostrarResumenAprobado();
+    return;
+  }
 
   iniciarTest();
 }
 
 function iniciarTest() {
+  const datos = datosProgresoActuales();
+  intentoLabel.textContent = `Intento ${Math.min(datos.intentos + 1, INTENTOS_MAXIMOS)} de ${INTENTOS_MAXIMOS}`;
   testState = { respuestas: new Array(preguntasActuales().length).fill(null), indiceActual: 0 };
   quizNav.style.display = "flex";
   renderPregunta();
+  mostrarVista("view-test");
+  renderSidebar();
+}
+
+/* ===== Resumen de un test ya aprobado (no se reinicia solo) ===== */
+
+function mostrarResumenAprobado() {
+  const datos = datosProgresoActuales();
+  const puntajeSobre10 = (datos.mejorPuntaje * 10).toFixed(2);
+  const indiceModulo = moduloActivo;
+  const esEvaluacion = enEvaluacion;
+
+  quizNav.style.display = "none";
+  quizDots.innerHTML = "";
+
+  const haySiguiente = !esEvaluacion && indiceModulo < MODULOS.length - 1;
+  const evaluacionDisponible = !esEvaluacion && !haySiguiente && todosLosModulosCompletos();
+
+  let accionPrincipal = "";
+  if (esEvaluacion) {
+    accionPrincipal = `<button class="btn btn--primary" data-ir-certificado>Ir al certificado</button>`;
+  } else if (haySiguiente) {
+    accionPrincipal = `<button class="btn btn--primary" data-siguiente>Continuar a la siguiente misión</button>`;
+  } else if (evaluacionDisponible) {
+    accionPrincipal = `<button class="btn btn--primary" data-ir-evaluacion>Ir a la evaluación final</button>`;
+  }
+
+  quizCard.innerHTML = `
+    <div class="resultado__icono es-aprobado"><svg width="26" height="26"><use href="#i-check"></use></svg></div>
+    <h3 class="resultado__titulo">Ya completaste ${esEvaluacion ? "la evaluación final" : "esta misión"}</h3>
+    <p class="resultado__puntaje">Tu mejor puntaje: ${Math.round(datos.mejorPuntaje * 100)}% (${puntajeSobre10} / 10)</p>
+    <p class="resultado__intentos">Si quieres, puedes repetir el test para mejorar tu puntaje.</p>
+    <div class="resultado__acciones">
+      <button class="btn btn--ghost" data-volver-panel>Volver al panel</button>
+      <button class="btn btn--ghost" data-repetir>Repetir test</button>
+      ${accionPrincipal}
+    </div>
+  `;
+
+  quizCard.querySelector("[data-volver-panel]").addEventListener("click", volverAlPanel);
+  quizCard.querySelector("[data-repetir]").addEventListener("click", iniciarTest);
+  quizCard.querySelector("[data-siguiente]")?.addEventListener("click", () => abrirContenido(indiceModulo + 1));
+  quizCard.querySelector("[data-ir-evaluacion]")?.addEventListener("click", abrirEvaluacion);
+  quizCard.querySelector("[data-ir-certificado]")?.addEventListener("click", abrirCertificado);
+
   mostrarVista("view-test");
   renderSidebar();
 }
