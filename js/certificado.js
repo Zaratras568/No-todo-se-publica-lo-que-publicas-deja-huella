@@ -54,22 +54,26 @@ async function descargarCertificadoPDF() {
     const canvas = await html2canvas(elemento, { scale: 2, backgroundColor: "#ffffff" });
     const imgData = canvas.toDataURL("image/png");
 
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    // La página del PDF se arma a la medida exacta del certificado
+    // (con un margen parejo alrededor), en vez de forzar un tamaño de
+    // hoja fijo (A4) — así nunca queda con espacios vacíos arriba/abajo
+    // sin importar la proporción real de la credencial.
     const margen = 28;
-    const areaAncho = pageWidth - margen * 2;
-    const areaAlto = pageHeight - margen * 2;
+    const anchoObjetivo = 842; // ancho de una hoja A4 horizontal, en puntos
+    const escala = (anchoObjetivo - margen * 2) / canvas.width;
+    const anchoFinal = canvas.width * escala;
+    const altoFinal = canvas.height * escala;
+    const pageWidth = anchoFinal + margen * 2;
+    const pageHeight = altoFinal + margen * 2;
 
-    const ratio = Math.min(areaAncho / canvas.width, areaAlto / canvas.height);
-    const anchoFinal = canvas.width * ratio;
-    const altoFinal = canvas.height * ratio;
-    const x = (pageWidth - anchoFinal) / 2;
-    const y = (pageHeight - altoFinal) / 2;
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: pageWidth >= pageHeight ? "landscape" : "portrait",
+      unit: "pt",
+      format: [pageWidth, pageHeight],
+    });
 
-    pdf.addImage(imgData, "PNG", x, y, anchoFinal, altoFinal);
+    pdf.addImage(imgData, "PNG", margen, margen, anchoFinal, altoFinal);
 
     const nombreArchivo = `certificado-${(estado.nombre || "participante").trim().toLowerCase().replace(/\s+/g, "-")}.pdf`;
     pdf.save(nombreArchivo);
