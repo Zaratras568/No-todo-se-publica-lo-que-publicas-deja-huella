@@ -47,9 +47,11 @@ function renderPanel() {
   const cardCert = document.getElementById("card-certificado");
 
   cardEval.classList.toggle("is-bloqueada", !todosCompletos);
-  document.getElementById("eval-mensaje-card").textContent = todosCompletos ? "Todas las misiones están completas. ¡Ya puedes rendirla!" : "Completa las 6 misiones para desbloquearla.";
-  document.getElementById("eval-mensaje").textContent = todosCompletos ? "Todas las misiones están completas. Puedes rendir la evaluación final." : "Completa las 6 misiones para desbloquear la evaluación.";
-  document.getElementById("btn-comenzar-evaluacion").hidden = !todosCompletos;
+  document.getElementById("eval-mensaje-card").textContent = estado.evaluacionAprobada ? "Ya aprobaste la evaluación final." : todosCompletos ? "Todas las misiones están completas. ¡Ya puedes rendirla!" : "Completa las 6 misiones para desbloquearla.";
+  document.getElementById("eval-mensaje").textContent = estado.evaluacionAprobada ? "Ya aprobaste la evaluación final." : todosCompletos ? "Todas las misiones están completas. Puedes rendir la evaluación final." : "Completa las 6 misiones para desbloquear la evaluación.";
+  const btnComenzarEval = document.getElementById("btn-comenzar-evaluacion");
+  btnComenzarEval.hidden = !todosCompletos;
+  btnComenzarEval.textContent = estado.evaluacionAprobada ? "Ver certificado" : "Comenzar evaluación";
   const botonEval = cardEval.querySelector(".btn");
   botonEval.className = todosCompletos ? "btn btn--primary" : "btn btn--locked";
   botonEval.textContent = todosCompletos ? "Comenzar" : "Bloqueada";

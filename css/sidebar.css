@@ -40,6 +40,7 @@
 }
 .sidebar__modulo-head:hover { background: var(--bg-soft); }
 .sidebar__modulo.is-bloqueado .sidebar__modulo-head { color: var(--locked); }
+.sidebar__modulo-head.is-activo { background: var(--bg-tint); color: var(--blue); }
 
 .sidebar__modulo-num {
   width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;

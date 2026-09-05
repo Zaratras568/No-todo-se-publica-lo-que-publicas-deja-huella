@@ -32,7 +32,7 @@ function renderSidebar() {
     const datos = estado.modulos[modulo.id];
     const bloqueado = !moduloDesbloqueado(indice);
     const testListo = testDesbloqueado(indice);
-    const activo = moduloActivo === indice;
+    const activo = !enEvaluacion && moduloActivo === indice;
 
     html += `<div class="sidebar__modulo ${bloqueado ? "is-bloqueado" : ""} ${datos.testAprobado ? "is-completado" : ""}">
       <button class="sidebar__modulo-head" data-ir-contenido="${indice}" ${bloqueado ? "disabled" : ""}>
@@ -51,12 +51,16 @@ function renderSidebar() {
   });
 
   const todosCompletos = todosLosModulosCompletos();
+  const vistaActualId = document.querySelector(".view.is-active")?.id;
+  const evalActiva = enEvaluacion && vistaActualId === "view-test";
+  const certActiva = vistaActualId === "view-certificado";
+
   html += `<div class="sidebar__closing">
-    <button class="sidebar__modulo-head" data-ir-vista="view-evaluacion" ${todosCompletos ? "" : "disabled"}>
+    <button class="sidebar__modulo-head ${evalActiva ? "is-activo" : ""}" data-ir-vista="view-evaluacion" ${todosCompletos ? "" : "disabled"}>
       <span class="sidebar__modulo-num">${todosCompletos ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
       Evaluación final
     </button>
-    <button class="sidebar__modulo-head" data-ir-vista="view-certificado" ${estado.evaluacionAprobada ? "" : "disabled"}>
+    <button class="sidebar__modulo-head ${certActiva ? "is-activo" : ""}" data-ir-vista="view-certificado" ${estado.evaluacionAprobada ? "" : "disabled"}>
       <span class="sidebar__modulo-num">${estado.evaluacionAprobada ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
       Certificado
     </button>
