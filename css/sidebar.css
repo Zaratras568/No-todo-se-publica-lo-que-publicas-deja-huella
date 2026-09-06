@@ -49,6 +49,7 @@
   display: flex; align-items: center; justify-content: center;
 }
 .sidebar__modulo.is-completado .sidebar__modulo-num { background: var(--success-bg); color: var(--success); }
+.sidebar__modulo-num.is-completado { background: var(--success-bg); color: var(--success); }
 .sidebar__modulo.is-bloqueado .sidebar__modulo-num { background: var(--locked-bg); color: var(--locked); }
 
 .sidebar__sub-list { margin: 2px 0 8px 30px; display: flex; flex-direction: column; gap: 1px; }

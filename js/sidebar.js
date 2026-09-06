@@ -57,11 +57,11 @@ function renderSidebar() {
 
   html += `<div class="sidebar__closing">
     <button class="sidebar__modulo-head ${evalActiva ? "is-activo" : ""}" data-ir-vista="view-evaluacion" ${todosCompletos ? "" : "disabled"}>
-      <span class="sidebar__modulo-num">${todosCompletos ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
+      <span class="sidebar__modulo-num ${estado.evaluacionAprobada ? "is-completado" : ""}">${estado.evaluacionAprobada ? '<svg width="11" height="11"><use href="#i-check"></use></svg>' : todosCompletos ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
       Evaluación final
     </button>
     <button class="sidebar__modulo-head ${certActiva ? "is-activo" : ""}" data-ir-vista="view-certificado" ${estado.evaluacionAprobada ? "" : "disabled"}>
-      <span class="sidebar__modulo-num">${estado.evaluacionAprobada ? "" : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
+      <span class="sidebar__modulo-num ${estado.evaluacionAprobada ? "is-completado" : ""}">${estado.evaluacionAprobada ? '<svg width="11" height="11"><use href="#i-check"></use></svg>' : '<svg width="10" height="10"><use href="#i-lock"></use></svg>'}</span>
       Certificado
     </button>
   </div>`;

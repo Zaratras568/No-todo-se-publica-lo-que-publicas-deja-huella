@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>No Todo Se Comparte</title>
-<link rel="icon" href="img/img_logo.icon" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
 <meta name="description" content="Recurso Educativo Abierto sobre privacidad, seguridad y bienestar en redes sociales. Vinculación con la Sociedad — Universidad ECOTEC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +16,11 @@
 <link rel="stylesheet" href="css/modulo.css">
 <link rel="stylesheet" href="css/quiz.css">
 <link rel="stylesheet" href="css/certificado.css">
+<link rel="stylesheet" href="css/campana.css">
 <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
+
 <!-- Iconos reutilizables (sin dependencias externas) -->
 <svg style="display:none">
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></symbol>
@@ -102,6 +104,7 @@
         <div>
           <p class="panel-head__kicker">Tu progreso</p>
           <h2 class="panel-head__title" id="saludo-panel">Bienvenido/a</h2>
+          <button class="link-btn" id="btn-ver-campana">Ver la campaña "No Todo Se Comparte"</button>
         </div>
         <div class="progress-summary">
           <div class="progress-summary__text"><span id="progreso-texto">0 de 6 misiones completadas</span></div>
@@ -196,7 +199,10 @@
           </div>
         </div>
         <div class="certificado__cuerpo">
-          <img src="img/logo-ecotec.png" alt="Universidad ECOTEC" class="certificado__logo">
+          <div class="certificado__encabezado">
+            <img src="img/logo-ecotec.png" alt="Universidad ECOTEC" class="certificado__logo">
+            <span class="certificado__sello">Certificado</span>
+          </div>
 
           <p class="certificado__acredita">Para acreditar que</p>
           <p class="certificado__nombre" id="cert-nombre">—</p>
@@ -223,6 +229,16 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="campana-modal" hidden>
+  <div class="modal-campana">
+    <button class="modal-campana__cerrar" id="btn-cerrar-campana" aria-label="Cerrar">
+      <svg width="16" height="16"><use href="#i-x"></use></svg>
+    </button>
+    <img src="img/campana-no-todo-se-comparte.jpg" alt="Infografía de la campaña No Todo Se Comparte: 6 temas, 6 mensajes para cuidarte" class="modal-campana__img">
+    <p class="modal-campana__caption">Campaña "No Todo Se Comparte" · #LoQuePublicasDejaHuella</p>
+  </div>
+</div>
+
 <footer class="site-footer no-imprimir">
   <img src="img/icono-vinculacion.png" alt="" class="site-footer__icon" aria-hidden="true">
   <img src="img/logo-ecotec.png" alt="Universidad ECOTEC" class="site-footer__logo">
@@ -237,6 +253,7 @@
 <script src="js/sidebar.js"></script>
 <script src="js/panel.js"></script>
 <script src="js/identidad.js"></script>
+<script src="js/campana.js"></script>
 <script src="js/contenido.js"></script>
 <script src="js/quiz.js"></script>
 <script src="js/certificado.js"></script>

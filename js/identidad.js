@@ -43,6 +43,7 @@ formNombre.addEventListener("submit", (e) => {
   renderPanel();
   renderSidebar();
   mostrarVista("view-dashboard");
+  mostrarCampanaSiEsPrimeraVez();
 });
 
 /* ===== Menú desplegable del avatar ===== */

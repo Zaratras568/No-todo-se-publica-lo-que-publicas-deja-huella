@@ -34,7 +34,15 @@
 
 .certificado__cuerpo { flex: 1; padding: 34px 38px 30px; position: relative; }
 
-.certificado__logo { height: 34px; width: auto; margin-bottom: 22px; }
+.certificado__logo { height: 34px; width: auto; }
+
+.certificado__encabezado { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+
+.certificado__sello {
+  font-family: var(--font-display); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+  border: 1.5px solid var(--blue); border-radius: 20px; padding: 5px 14px;
+}
 
 .certificado__acredita {
   font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em;

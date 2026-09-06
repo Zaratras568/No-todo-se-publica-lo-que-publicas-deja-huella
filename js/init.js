@@ -9,3 +9,4 @@ if (estado.nombre) inputNombre.value = estado.nombre;
 renderPanel();
 renderSidebar();
 mostrarVista(estado.nombre ? "view-dashboard" : "view-inicio");
+if (estado.nombre) mostrarCampanaSiEsPrimeraVez();

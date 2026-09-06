@@ -32,6 +32,7 @@ function abrirCertificado() {
     `Dado en Samborondón, provincia del Guayas, República del Ecuador, el ${fechaTexto}.`;
 
   mostrarVista("view-certificado");
+  renderSidebar();
 }
 
 async function descargarCertificadoPDF() {
