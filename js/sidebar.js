@@ -26,6 +26,7 @@ function renderSidebar() {
   if (!estado.nombre) { sidebar.innerHTML = ""; return; }
 
   let html = `<button class="sidebar__panel-link" data-ir-panel><svg width="15" height="15"><use href="#i-bars"></use></svg>Panel principal</button>`;
+  html += `<button class="sidebar__panel-link" data-ver-campana><svg width="15" height="15"><use href="#i-megaphone"></use></svg>Ver campaña</button>`;
   html += `<p class="sidebar__group-label">Misiones</p>`;
 
   MODULOS.forEach((modulo, indice) => {
@@ -72,6 +73,9 @@ function renderSidebar() {
 sidebar.addEventListener("click", (e) => {
   const botonPanel = e.target.closest("[data-ir-panel]");
   if (botonPanel) return volverAlPanel();
+
+  const botonCampana = e.target.closest("[data-ver-campana]");
+  if (botonCampana) return abrirModalCampana();
 
   const botonContenido = e.target.closest("[data-ir-contenido]");
   if (botonContenido && !botonContenido.disabled) return abrirContenido(Number(botonContenido.dataset.irContenido));
