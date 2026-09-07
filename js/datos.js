@@ -18,7 +18,7 @@ const BIENVENIDA_YOUTUBE_ID = "0X9JtHGOUYY";
 
 const MODULOS = [
   {
-    id: "modulo1", titulo: "Huella digital", duracion: "8 min", nivel: "Fácil", youtubeId: "Fh6I3xxwWIw",
+    id: "modulo1", titulo: "Huella digital", duracion: "3:47 min", nivel: "Fácil", youtubeId: "Fh6I3xxwWIw",
     resumen: "Qué es la huella digital, por qué no se borra fácilmente y cómo tus publicaciones de hoy pueden encontrarte en el futuro.",
     preguntas: [
       { pregunta: "¿Qué es la huella digital?", opciones: ["El rastro que dejas al usar internet", "Un tipo de virus informático", "La huella dactilar escaneada"], correcta: 0 },
@@ -27,7 +27,7 @@ const MODULOS = [
     ],
   },
   {
-    id: "modulo2", titulo: "Privacidad", duracion: "10 min", nivel: "Fácil", youtubeId: "ZZkCN3qWBas",
+    id: "modulo2", titulo: "Privacidad", duracion: "3:14 min", nivel: "Fácil", youtubeId: "ZZkCN3qWBas",
     resumen: "Cómo configurar la privacidad de tus cuentas y decidir con criterio qué compartir y con quién.",
     preguntas: [
       { pregunta: "¿Qué es una cuenta 'pública' en redes sociales?", opciones: ["Solo la ven tus contactos", "La puede ver cualquier persona", "Solo la ve tu familia"], correcta: 1 },
@@ -36,7 +36,7 @@ const MODULOS = [
     ],
   },
   {
-    id: "modulo3", titulo: "Ciberacoso", duracion: "9 min", nivel: "Medio", youtubeId: "0X9JtHGOUYY",
+    id: "modulo3", titulo: "Ciberacoso", duracion: "4:05 min", nivel: "Medio", youtubeId: "0X9JtHGOUYY",
     resumen: "Cómo identificar el ciberacoso, qué hacer si te ocurre a ti o a alguien cercano, y dónde pedir ayuda.",
     preguntas: [
       { pregunta: "¿Qué es el ciberacoso?", opciones: ["Un juego en línea", "Hostigar o intimidar a alguien por medios digitales", "Un tipo de publicidad"], correcta: 1 },
@@ -45,7 +45,7 @@ const MODULOS = [
     ],
   },
   {
-    id: "modulo4", titulo: "Desinformación", duracion: "9 min", nivel: "Medio", youtubeId: "axStca1xfuo",
+    id: "modulo4", titulo: "Desinformación", duracion: "3:58 min", nivel: "Medio", youtubeId: "axStca1xfuo",
     resumen: "Cómo reconocer noticias falsas y verificar información antes de compartirla.",
     preguntas: [
       { pregunta: "Antes de compartir una noticia impactante, deberías...", opciones: ["Compartirla de inmediato", "Verificar la fuente primero", "Solo mirar el titular"], correcta: 1 },
