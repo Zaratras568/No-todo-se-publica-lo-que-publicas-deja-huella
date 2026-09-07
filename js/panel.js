@@ -66,6 +66,7 @@ function renderPanel() {
   botonCert.style.width = "100%";
 
   actualizarIdentidad();
+  actualizarTarjetaBienvenida();
 }
 
 document.getElementById("card-evaluacion").addEventListener("click", () => {

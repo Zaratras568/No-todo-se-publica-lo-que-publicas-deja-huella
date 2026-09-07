@@ -17,6 +17,12 @@
 
 .content-slot { border: 1.5px dashed var(--border); border-radius: var(--radius); background: var(--bg-soft); color: var(--slate); font-size: 13px; text-align: center; padding: 56px 20px; margin-bottom: 16px; }
 
+.content-video-wrap {
+  position: relative; width: 100%; padding-bottom: 56.25%; height: 0;
+  border-radius: var(--radius); overflow: hidden; background: #000; margin-bottom: 10px;
+}
+.content-video-wrap iframe, .content-video-wrap > div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
 .video-check { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .video-check__hint { color: var(--slate); font-weight: 400; }
 .video-check__done { display: inline-flex; align-items: center; gap: 6px; color: var(--success); font-size: 12.5px; font-weight: 600; }

@@ -25,8 +25,17 @@ sidebarBackdrop.addEventListener("click", () => {
 function renderSidebar() {
   if (!estado.nombre) { sidebar.innerHTML = ""; return; }
 
+  const vistaActualId = document.querySelector(".view.is-active")?.id;
+
   let html = `<button class="sidebar__panel-link" data-ir-panel><svg width="15" height="15"><use href="#i-bars"></use></svg>Panel principal</button>`;
   html += `<button class="sidebar__panel-link" data-ver-campana><svg width="15" height="15"><use href="#i-megaphone"></use></svg>Ver campaña</button>`;
+
+  html += `<p class="sidebar__group-label">Antes de empezar</p>`;
+  html += `<button class="sidebar__modulo-head ${vistaActualId === "view-bienvenida" ? "is-activo" : ""}" data-ir-bienvenida>
+    <span class="sidebar__modulo-num ${estado.bienvenida.contenidoVisto ? "is-completado" : ""}">${estado.bienvenida.contenidoVisto ? '<svg width="11" height="11"><use href="#i-check"></use></svg>' : ""}</span>
+    Bienvenida
+  </button>`;
+
   html += `<p class="sidebar__group-label">Misiones</p>`;
 
   MODULOS.forEach((modulo, indice) => {
@@ -41,10 +50,10 @@ function renderSidebar() {
         ${modulo.titulo}
       </button>
       <div class="sidebar__sub-list">
-        <button class="sidebar__sub-item ${activo && document.getElementById("view-contenido").classList.contains("is-active") ? "is-activo" : ""} ${datos.contenidoVisto ? "is-completado" : ""}" data-ir-contenido="${indice}" ${bloqueado ? "disabled" : ""}>
+        <button class="sidebar__sub-item ${activo && vistaActualId === "view-contenido" ? "is-activo" : ""} ${datos.contenidoVisto ? "is-completado" : ""}" data-ir-contenido="${indice}" ${bloqueado ? "disabled" : ""}>
           <svg width="12" height="12"><use href="#i-play"></use></svg>Contenido
         </button>
-        <button class="sidebar__sub-item ${activo && document.getElementById("view-test").classList.contains("is-active") ? "is-activo" : ""} ${datos.testAprobado ? "is-completado" : ""}" data-ir-test="${indice}" ${testListo ? "" : "disabled"}>
+        <button class="sidebar__sub-item ${activo && vistaActualId === "view-test" ? "is-activo" : ""} ${datos.testAprobado ? "is-completado" : ""}" data-ir-test="${indice}" ${testListo ? "" : "disabled"}>
           <svg width="12" height="12"><use href="#i-list"></use></svg>Test
         </button>
       </div>
@@ -52,7 +61,6 @@ function renderSidebar() {
   });
 
   const todosCompletos = todosLosModulosCompletos();
-  const vistaActualId = document.querySelector(".view.is-active")?.id;
   const evalActiva = enEvaluacion && vistaActualId === "view-test";
   const certActiva = vistaActualId === "view-certificado";
 
@@ -76,6 +84,9 @@ sidebar.addEventListener("click", (e) => {
 
   const botonCampana = e.target.closest("[data-ver-campana]");
   if (botonCampana) return abrirModalCampana();
+
+  const botonBienvenida = e.target.closest("[data-ir-bienvenida]");
+  if (botonBienvenida) return abrirBienvenida();
 
   const botonContenido = e.target.closest("[data-ir-contenido]");
   if (botonContenido && !botonContenido.disabled) return abrirContenido(Number(botonContenido.dataset.irContenido));

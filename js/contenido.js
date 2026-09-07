@@ -1,11 +1,23 @@
 /* ============================================
-   CONTENIDO — vista de video/contenido de un módulo
-   Depende de: estado.js, navegacion.js, sidebar.js
+   CONTENIDO — vista de video de un módulo
+   Cada módulo indica en datos.js su youtubeId (o
+   null si aún no tiene video). Si lo tiene, se
+   reutiliza el mismo reproductor de YouTube
+   (playerContenido, creado en youtube.js) cambiando
+   el video con loadVideoById(); el botón "Ir al
+   test" se habilita cuando youtube.js detecta que
+   terminó (llama a marcarContenidoVisto()). Si el
+   módulo todavía no tiene video, se muestra el
+   espacio de relleno con el botón manual de respaldo.
+   Depende de: estado.js, navegacion.js, sidebar.js, youtube.js
    ============================================ */
 
 const btnIrTest = document.getElementById("btn-ir-test");
-const btnMarcarVisto = document.getElementById("btn-marcar-visto");
 const videoCheckDone = document.getElementById("video-check-done");
+const contenidoPlaceholder = document.getElementById("contenido-placeholder");
+const contenidoVideoWrap = document.getElementById("contenido-video-wrap");
+const btnMarcarVistoWrap = document.getElementById("contenido-marcar-visto-wrap");
+const btnMarcarVisto = document.getElementById("btn-marcar-visto");
 
 function abrirContenido(indice) {
   if (!moduloDesbloqueado(indice)) return;
@@ -17,7 +29,24 @@ function abrirContenido(indice) {
   document.getElementById("contenido-titulo").textContent = modulo.titulo;
   document.getElementById("contenido-lede").textContent = modulo.resumen;
 
-  btnMarcarVisto.hidden = datos.contenidoVisto;
+  if (modulo.youtubeId) {
+    contenidoPlaceholder.hidden = true;
+    btnMarcarVistoWrap.hidden = true;
+    contenidoVideoWrap.hidden = false;
+
+    if (playerContenido && playerContenido.loadVideoById) {
+      playerContenido.loadVideoById(modulo.youtubeId);
+    } else {
+      // La API de YouTube todavía no terminó de cargar — se carga
+      // este video en cuanto esté lista (ver youtube.js).
+      pendingContenidoVideoId = modulo.youtubeId;
+    }
+  } else {
+    contenidoVideoWrap.hidden = true;
+    contenidoPlaceholder.hidden = false;
+    btnMarcarVistoWrap.hidden = datos.contenidoVisto;
+  }
+
   videoCheckDone.hidden = !datos.contenidoVisto;
   btnIrTest.disabled = !datos.contenidoVisto;
   btnIrTest.textContent = "Ir al test";
@@ -25,15 +54,22 @@ function abrirContenido(indice) {
   mostrarVista("view-contenido");
   renderSidebar();
 }
-btnMarcarVisto.addEventListener("click", () => {
+
+function marcarContenidoVisto() {
   if (moduloActivo === null) return;
   const modulo = MODULOS[moduloActivo];
+  if (estado.modulos[modulo.id].contenidoVisto) return;
   estado.modulos[modulo.id].contenidoVisto = true;
   guardarEstado();
-  btnMarcarVisto.hidden = true;
+  renderPanel();
+  renderSidebar();
   videoCheckDone.hidden = false;
   btnIrTest.disabled = false;
-  renderSidebar();
+}
+
+btnMarcarVisto.addEventListener("click", () => {
+  marcarContenidoVisto();
+  btnMarcarVistoWrap.hidden = true;
 });
 
 document.getElementById("btn-volver-contenido").addEventListener("click", volverAlPanel);

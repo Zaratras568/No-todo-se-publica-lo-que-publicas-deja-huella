@@ -7,6 +7,7 @@
 function estadoPorDefecto() {
   return {
     nombre: "",
+    bienvenida: { contenidoVisto: false },
     modulos: Object.fromEntries(
       MODULOS.map((m) => [m.id, { contenidoVisto: false, testAprobado: false, intentos: 0, mejorPuntaje: 0 }])
     ),
@@ -24,6 +25,7 @@ function cargarEstado() {
     return {
       ...estadoPorDefecto(),
       ...datos,
+      bienvenida: { ...estadoPorDefecto().bienvenida, ...(datos.bienvenida || {}) },
       modulos: { ...estadoPorDefecto().modulos, ...(datos.modulos || {}) },
       evaluacion: { ...estadoPorDefecto().evaluacion, ...(datos.evaluacion || {}) },
     };
@@ -43,7 +45,7 @@ let testState = { respuestas: [], indiceActual: 0 };
 /* ===== Utilidades de progreso ===== */
 
 function moduloDesbloqueado(indice) {
-  if (indice === 0) return true;
+  if (indice === 0) return estado.bienvenida.contenidoVisto;
   return estado.modulos[MODULOS[indice - 1].id].testAprobado;
 }
 
