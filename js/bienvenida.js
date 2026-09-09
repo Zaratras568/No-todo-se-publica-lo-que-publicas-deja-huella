@@ -1,12 +1,15 @@
 /* ============================================
    BIENVENIDA — sección introductoria antes del
-   Módulo 1. El botón para pasar al Módulo 1 se
-   habilita solo cuando el video de YouTube termina
-   (ver youtube.js, que llama a marcarBienvenidaVista
-   cuando detecta el estado ENDED).
+   Módulo 1. Cada vez que se abre esta vista se crea
+   un reproductor de YouTube nuevo (ver youtube.js)
+   para evitar que se quede en negro si ya se había
+   visto antes. El botón para pasar al Módulo 1 se
+   habilita solo cuando el video termina.
    Depende de: estado.js, navegacion.js, sidebar.js,
    panel.js, contenido.js, youtube.js
    ============================================ */
+
+let playerBienvenida = null;
 
 const btnIrModulo1 = document.getElementById("btn-ir-modulo1");
 
@@ -14,6 +17,13 @@ function abrirBienvenida() {
   btnIrModulo1.disabled = !estado.bienvenida.contenidoVisto;
   mostrarVista("view-bienvenida");
   renderSidebar();
+
+  crearPlayerCuandoListo(
+    "yt-bienvenida-container",
+    BIENVENIDA_YOUTUBE_ID,
+    marcarBienvenidaVista,
+    (player) => { playerBienvenida = player; }
+  );
 }
 
 function marcarBienvenidaVista() {

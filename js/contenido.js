@@ -1,16 +1,17 @@
 /* ============================================
    CONTENIDO — vista de video de un módulo
    Cada módulo indica en datos.js su youtubeId (o
-   null si aún no tiene video). Si lo tiene, se
-   reutiliza el mismo reproductor de YouTube
-   (playerContenido, creado en youtube.js) cambiando
-   el video con loadVideoById(); el botón "Ir al
-   test" se habilita cuando youtube.js detecta que
-   terminó (llama a marcarContenidoVisto()). Si el
+   null si aún no tiene video). Cada vez que se abre
+   un módulo se crea un reproductor de YouTube nuevo
+   (ver youtube.js) — así, si ya se había visto antes
+   (repasar), el video nunca se queda en negro por
+   reutilizar un iframe que estuvo oculto. Si el
    módulo todavía no tiene video, se muestra el
    espacio de relleno con el botón manual de respaldo.
    Depende de: estado.js, navegacion.js, sidebar.js, youtube.js
    ============================================ */
+
+let playerContenido = null;
 
 const btnIrTest = document.getElementById("btn-ir-test");
 const videoCheckDone = document.getElementById("video-check-done");
@@ -34,13 +35,12 @@ function abrirContenido(indice) {
     btnMarcarVistoWrap.hidden = true;
     contenidoVideoWrap.hidden = false;
 
-    if (playerContenido && playerContenido.loadVideoById) {
-      playerContenido.loadVideoById(modulo.youtubeId);
-    } else {
-      // La API de YouTube todavía no terminó de cargar — se carga
-      // este video en cuanto esté lista (ver youtube.js).
-      pendingContenidoVideoId = modulo.youtubeId;
-    }
+    crearPlayerCuandoListo(
+      "yt-contenido-container",
+      modulo.youtubeId,
+      marcarContenidoVisto,
+      (player) => { playerContenido = player; }
+    );
   } else {
     contenidoVideoWrap.hidden = true;
     contenidoPlaceholder.hidden = false;

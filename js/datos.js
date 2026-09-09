@@ -54,7 +54,7 @@ const MODULOS = [
     ],
   },
   {
-    id: "modulo5", titulo: "Bienestar digital", duracion: "7 min", nivel: "Fácil", youtubeId: "HwqC5VqcbcA",
+    id: "modulo5", titulo: "Bienestar digital", duracion: "8:10 min", nivel: "Fácil", youtubeId: "HwqC5VqcbcA",
     resumen: "Cómo equilibrar el tiempo en pantalla y reconocer cuándo las redes sociales afectan tu ánimo.",
     preguntas: [
       { pregunta: "¿Qué es el bienestar digital?", opciones: ["Tener el celular más caro", "Una relación sana con la tecnología", "Usar internet todo el día"], correcta: 1 },
@@ -63,7 +63,7 @@ const MODULOS = [
     ],
   },
   {
-    id: "modulo6", titulo: "Uso responsable", duracion: "8:10 min", nivel: "Medio", youtubeId: null,
+    id: "modulo6", titulo: "Uso responsable", duracion: "8 min", nivel: "Medio", youtubeId: null,
     resumen: "Buenas prácticas para publicar, comentar e interactuar de forma responsable en redes sociales.",
     preguntas: [
       { pregunta: "Antes de comentar algo fuerte, es buena idea...", opciones: ["Publicarlo sin pensar", "Pensar cómo se sentiría la otra persona", "No importa lo que sientan otros"], correcta: 1 },

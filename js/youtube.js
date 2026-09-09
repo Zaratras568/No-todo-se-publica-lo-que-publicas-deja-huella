@@ -1,53 +1,59 @@
 /* ============================================
-   YOUTUBE — carga la API de YouTube (IFrame Player
-   API) y crea los dos reproductores que usa el
-   curso: uno para Bienvenida y uno reutilizable
-   para el contenido de cualquier módulo. Detectar
-   cuándo termina un video (para habilitar el botón
-   de continuar) solo es posible con esta API, no
-   con un <iframe> simple.
+   YOUTUBE — utilidades para crear reproductores
+   de YouTube (IFrame Player API).
 
-   bienvenida.js y contenido.js definen las
-   funciones marcarBienvenidaVista() y
-   marcarContenidoVisto() — este archivo las llama
-   cuando el video correspondiente termina.
+   IMPORTANTE: cada vez que se abre un video se crea
+   un reproductor NUEVO dentro de su contenedor (en
+   vez de reutilizar uno ya existente con
+   loadVideoById). Reutilizar el mismo iframe después
+   de que su contenedor estuvo oculto (al cambiar de
+   vista) hace que YouTube lo muestre en negro sin
+   reproducir — crear uno nuevo cada vez evita ese bug.
 
-   Depende de: datos.js (BIENVENIDA_YOUTUBE_ID, MODULOS)
+   bienvenida.js y contenido.js llaman a
+   crearPlayerCuandoListo() con el contenedor, el id
+   del video de YouTube, y qué hacer cuando termine.
+
+   Depende de: datos.js (solo para que MODULOS ya
+   exista si algo lo necesita al cargar)
    ============================================ */
 
 let ytApiListo = false;
-let playerBienvenida = null;
-let playerContenido = null;
-let pendingContenidoVideoId = null;
 
 // La API de YouTube busca esta función global exacta cuando termina de cargar.
 function onYouTubeIframeAPIReady() {
   ytApiListo = true;
+}
 
-  playerBienvenida = new YT.Player("yt-bienvenida", {
-    videoId: BIENVENIDA_YOUTUBE_ID,
+// Vacía el contenedor y crea un reproductor nuevo dentro de un div fresco.
+function crearPlayerEnContenedor(idContenedor, videoId, onTermina) {
+  const contenedor = document.getElementById(idContenedor);
+  contenedor.innerHTML = "";
+  const destino = document.createElement("div");
+  contenedor.appendChild(destino);
+
+  return new YT.Player(destino, {
+    videoId,
     playerVars: { rel: 0, modestbranding: 1 },
     events: {
       onStateChange: (event) => {
-        if (event.data === YT.PlayerState.ENDED && typeof marcarBienvenidaVista === "function") {
-          marcarBienvenidaVista();
-        }
+        if (event.data === YT.PlayerState.ENDED) onTermina();
       },
     },
   });
+}
 
-  const primerVideoDisponible = MODULOS.find((m) => m.youtubeId)?.youtubeId || "";
-  playerContenido = new YT.Player("yt-contenido", {
-    videoId: pendingContenidoVideoId || primerVideoDisponible,
-    playerVars: { rel: 0, modestbranding: 1 },
-    events: {
-      onStateChange: (event) => {
-        if (event.data === YT.PlayerState.ENDED && typeof marcarContenidoVisto === "function") {
-          marcarContenidoVisto();
-        }
-      },
-    },
-  });
-
-  if (pendingContenidoVideoId) pendingContenidoVideoId = null;
+// Si la API todavía no cargó (poco probable, pero puede pasar justo al
+// entrar a la página), espera a que esté lista antes de crear el reproductor.
+function crearPlayerCuandoListo(idContenedor, videoId, onTermina, asignarPlayer) {
+  if (ytApiListo) {
+    asignarPlayer(crearPlayerEnContenedor(idContenedor, videoId, onTermina));
+    return;
+  }
+  const intervalo = setInterval(() => {
+    if (ytApiListo) {
+      clearInterval(intervalo);
+      asignarPlayer(crearPlayerEnContenedor(idContenedor, videoId, onTermina));
+    }
+  }, 150);
 }
