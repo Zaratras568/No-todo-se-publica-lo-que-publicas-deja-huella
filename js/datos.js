@@ -14,7 +14,7 @@ const INTENTOS_MAXIMOS = 3;
 const PORCENTAJE_APROBACION = 0.7;
 
 /* Video de la sección de Bienvenida (ID de YouTube, video "no listado"). */
-const BIENVENIDA_YOUTUBE_ID = "0X9JtHGOUYY";
+const BIENVENIDA_YOUTUBE_ID = "wxTF6LlK70o";
 
 const MODULOS = [
   {
