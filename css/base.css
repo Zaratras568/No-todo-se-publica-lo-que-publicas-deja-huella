@@ -28,6 +28,11 @@
 
 * { box-sizing: border-box; }
 
+/* El atributo hidden SIEMPRE debe ganar, sin importar qué clase tenga el
+   elemento (ej. .btn o .certificado fijan su propio "display", lo cual
+   sin esta regla anula el hidden y el elemento se ve aunque esté oculto). */
+[hidden] { display: none !important; }
+
 html { height: 100%; }
 
 body {
